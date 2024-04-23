@@ -156,7 +156,7 @@ namespace AvaloniaEdit.Document
         {
             if(Thread.CurrentThread != ownerThread)
             {
-                throw new InvalidOperationException("Call from invalid thread.");
+//                throw new InvalidOperationException("Call from invalid thread.");
             }
         }
 
