@@ -227,21 +227,44 @@ namespace AvaloniaEdit.Rendering
             }
         }
 
+        //private void CalculateOffsets()
+        //{
+        //    var visualOffset = 0;
+        //    var textOffset = 0;
+        //    foreach (var element in _elements)
+        //    {
+        //        element.VisualColumn = visualOffset;
+        //        element.RelativeTextOffset = textOffset;
+        //        visualOffset += element.VisualLength;
+        //        textOffset += element.DocumentLength;
+        //    }
+        //    VisualLength = visualOffset;
+        //    Debug.Assert(textOffset == LastDocumentLine.EndOffset - FirstDocumentLine.Offset);
+        //}
         private void CalculateOffsets()
         {
             var visualOffset = 0;
             var textOffset = 0;
+            int tabOffset = 0;
             foreach (var element in _elements)
             {
                 element.VisualColumn = visualOffset;
                 element.RelativeTextOffset = textOffset;
                 visualOffset += element.VisualLength;
                 textOffset += element.DocumentLength;
+                if (element is SingleCharacterElementGenerator.TabTextElement)
+                {
+                    (element as SingleCharacterElementGenerator.TabTextElement).TabSize = 4 - (tabOffset % 4);
+                    tabOffset = 0;
+                }
+                else
+                {
+                    tabOffset = tabOffset + element.DocumentLength;
+                }
             }
             VisualLength = visualOffset;
             Debug.Assert(textOffset == LastDocumentLine.EndOffset - FirstDocumentLine.Offset);
         }
-
         internal void RunTransformers(ITextRunConstructionContext context, IReadOnlyList<IVisualLineTransformer> transformers)
         {
             Debug.Assert(_phase == LifetimePhase.Transforming);
