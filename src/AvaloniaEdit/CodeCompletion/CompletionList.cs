@@ -43,6 +43,7 @@ namespace AvaloniaEdit.CodeCompletion
             {
                 Key.Enter,
                 Key.Tab,
+                Key.OemPeriod,
             };
         }
 
@@ -177,10 +178,9 @@ namespace AvaloniaEdit.CodeCompletion
                 default:
                     if (CompletionAcceptKeys.Contains(e.Key) && CurrentList.Count > 0)
                     {
-                        e.Handled = true;
+                        if(e.Key == Key.Enter ) e.Handled = true;
                         RequestInsertion(e);
                     }
-
                     break;
             }
         }
