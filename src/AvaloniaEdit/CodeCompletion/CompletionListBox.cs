@@ -28,7 +28,7 @@ namespace AvaloniaEdit.CodeCompletion
     /// </summary>
     public class CompletionListBox : ListBox
     {
-        internal ScrollViewer ScrollViewer;
+        public ScrollViewer ScrollViewer;
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
