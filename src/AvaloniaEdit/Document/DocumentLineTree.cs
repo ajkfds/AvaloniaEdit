@@ -107,7 +107,7 @@ namespace AvaloniaEdit.Document
             Debug.Assert(nodes.Length > 0);
             // now build the corresponding balanced tree
             var height = GetTreeHeight(nodes.Length);
-            Debug.WriteLine("DocumentLineTree will have height: " + height);
+//            Debug.WriteLine("DocumentLineTree will have height: " + height);
             _root = BuildTree(nodes, 0, nodes.Length, height);
             _root.Color = Black;
 #if DEBUG
