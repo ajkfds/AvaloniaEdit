@@ -83,8 +83,17 @@ namespace AvaloniaEdit.CodeCompletion
         {
             InsertionRequested?.Invoke(this, e);
         }
-
-        private CompletionListBox _listBox;
+        CompletionListBox __lst;
+        private CompletionListBox _listBox {
+            get
+            {
+                return __lst;
+            }
+            set
+            {
+                __lst = value;
+            }
+        }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
@@ -143,7 +152,7 @@ namespace AvaloniaEdit.CodeCompletion
         /// </summary>
         public void HandleKey(KeyEventArgs e)
         {
-            if (_listBox == null)
+           if (_listBox == null)
                 return;
 
             // We have to do some key handling manually, because the default doesn't work with
@@ -178,7 +187,7 @@ namespace AvaloniaEdit.CodeCompletion
                 default:
                     if (CompletionAcceptKeys.Contains(e.Key) && CurrentList.Count > 0)
                     {
-                        if(e.Key == Key.Enter ) e.Handled = true;
+                        if( e.Key == Key.Enter | e.Key == Key.Tab ) e.Handled = true;
                         RequestInsertion(e);
                     }
                     break;
@@ -282,6 +291,7 @@ namespace AvaloniaEdit.CodeCompletion
                 select new { Item = item, Quality = quality };
 
             // e.g. "DateTimeKind k = (*cc here suggests DateTimeKind*)"
+            System.Diagnostics.Debug.Print("### SelectItemFiltering " + query+ " sel"+ _listBox.SelectedIndex.ToString());
             var suggestedItem = _listBox.SelectedIndex != -1 ? (ICompletionData)_listBox.SelectedItem : null;
 
             var listBoxItems = new ObservableCollection<ICompletionData>();
