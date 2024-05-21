@@ -83,18 +83,8 @@ namespace AvaloniaEdit.CodeCompletion
         {
             InsertionRequested?.Invoke(this, e);
         }
-        CompletionListBox __lst;
-        private CompletionListBox _listBox {
-            get
-            {
-                return __lst;
-            }
-            set
-            {
-                __lst = value;
-            }
-        }
-
+        public CompletionListBox _listBox;
+ 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
