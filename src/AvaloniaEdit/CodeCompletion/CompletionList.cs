@@ -271,8 +271,7 @@ namespace AvaloniaEdit.CodeCompletion
         {
             // if the user just typed one more character, don't filter all data but just filter what we are already displaying
             var listToFilter = _currentList != null && !string.IsNullOrEmpty(_currentText) && !string.IsNullOrEmpty(query) &&
-                               query.StartsWith(_currentText, StringComparison.Ordinal) ?
-                _currentList : _completionData;
+                               query.StartsWith(_currentText, StringComparison.Ordinal) ? _currentList : _completionData;
 
             var matchingItems =
                 from item in listToFilter
@@ -285,6 +284,7 @@ namespace AvaloniaEdit.CodeCompletion
             var suggestedItem = _listBox.SelectedIndex != -1 ? (ICompletionData)_listBox.SelectedItem : null;
 
             var listBoxItems = new ObservableCollection<ICompletionData>();
+
             var bestIndex = -1;
             var bestQuality = -1;
             double bestPriority = 0;
@@ -299,13 +299,14 @@ namespace AvaloniaEdit.CodeCompletion
                     bestPriority = priority;
                     bestQuality = quality;
                 }
-                listBoxItems.Add(matchingItem.Item);
+                listBoxItems.Add(matchingItem.Item.Clone());
                 i++;
             }
 
             _currentList = listBoxItems;
             //_listBox.Items = null; Makes no sense? Tooltip disappeared because of this
             _listBox.ItemsSource = listBoxItems;
+
             SelectIndexCentered(bestIndex);
         }
 

@@ -58,7 +58,10 @@ namespace AvaloniaEdit.CodeCompletion
 		/// which the user is accessing most frequently.
 		/// </summary>
 		double Priority { get; }
-		
+
+		ICompletionData Clone();
+
+
 		/// <summary>
 		/// Perform the completion.
 		/// </summary>
