@@ -808,8 +808,8 @@ namespace AvaloniaEdit
         public void ScrollToVerticalOffset(double offset)
         {
             ApplyTemplate(); // ensure scrollViewer is created
-            //if (scrollViewer != null)
-            //    scrollViewer.ScrollToVerticalOffset(offset);
+            if (ScrollViewer != null)
+                ScrollViewer.Offset = new Vector(ScrollViewer.Offset.X, offset);
         }
 
         /// <summary>
