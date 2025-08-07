@@ -130,9 +130,10 @@ namespace AvaloniaEdit.Folding
         public FoldingSection CreateFolding(int startOffset, int endOffset)
         {
             if (startOffset >= endOffset)
-                return;
+                return new FoldingSection(this, 0, 0);
 //                throw new ArgumentException("startOffset must be less than endOffset");
-            if (startOffset < 0 || endOffset > Document.TextLength) return;
+            if (startOffset < 0 || endOffset > Document.TextLength)
+                return new FoldingSection(this, 0, 0);
 //                throw new ArgumentException("Folding must be within document boundary");
             var fs = new FoldingSection(this, startOffset, endOffset);
             _foldings.Add(fs);
