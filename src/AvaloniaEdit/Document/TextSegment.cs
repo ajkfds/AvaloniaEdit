@@ -157,8 +157,8 @@ namespace AvaloniaEdit.Document
             set
             {
                 var newLength = value - StartOffset;
-                if (newLength < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value), "EndOffset must be greater or equal to StartOffset");
+                if (newLength < 0) return;
+//                    throw new ArgumentOutOfRangeException(nameof(value), "EndOffset must be greater or equal to StartOffset");
                 Length = newLength;
             }
         }
