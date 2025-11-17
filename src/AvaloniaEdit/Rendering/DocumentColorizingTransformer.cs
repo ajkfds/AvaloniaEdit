@@ -81,7 +81,10 @@ namespace AvaloniaEdit.Rendering
 		/// <param name="action">Action that changes an individual <see cref="VisualLineElement"/>.</param>
 		protected void ChangeLinePart(int startOffset, int endOffset, Action<VisualLineElement> action)
 		{
-			if (startOffset < _currentDocumentLineStartOffset || startOffset > _currentDocumentLineEndOffset)
+			if (startOffset < _currentDocumentLineStartOffset || startOffset > _currentDocumentLineEndOffset) return;
+			if (endOffset < startOffset || endOffset > _currentDocumentLineEndOffset) return;
+
+            if (startOffset < _currentDocumentLineStartOffset || startOffset > _currentDocumentLineEndOffset)
 				throw new ArgumentOutOfRangeException(nameof(startOffset), startOffset, "Value must be between " + _currentDocumentLineStartOffset + " and " + _currentDocumentLineEndOffset);
 			if (endOffset < startOffset || endOffset > _currentDocumentLineEndOffset)
 				throw new ArgumentOutOfRangeException(nameof(endOffset), endOffset, "Value must be between " + startOffset + " and " + _currentDocumentLineEndOffset);
