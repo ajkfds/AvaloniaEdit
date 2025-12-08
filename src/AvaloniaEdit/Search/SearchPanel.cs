@@ -460,6 +460,9 @@ namespace AvaloniaEdit.Search
                         FindNext();
                     }
                     break;
+                case Key.Tab:
+                    e.Handled = true;
+                    break;
                 case Key.Escape:
                     e.Handled = true;
                     Close();
