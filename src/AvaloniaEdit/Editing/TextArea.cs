@@ -142,6 +142,24 @@ namespace AvaloniaEdit.Editing
 
         #endregion
 
+        #region Watermark
+        /// <summary>
+        /// Defines the <see cref="Watermark"/> property
+        /// </summary>
+        public static readonly StyledProperty<string> WatermarkProperty =
+            AvaloniaProperty.Register<TextArea, string>(nameof(Watermark));
+
+        /// <summary>
+        /// Gets or sets the placeholder or descriptive text that is displayed even if the <see cref="Text"/>
+        /// property is not yet set.
+        /// </summary>
+        public string Watermark
+        {
+            get => GetValue(WatermarkProperty);
+            set => SetValue(WatermarkProperty, value);
+        }
+        #endregion
+
         /// <summary>
         ///     Defines the <see cref="IScrollable.Offset" /> property.
         /// </summary>
@@ -739,6 +757,32 @@ namespace AvaloniaEdit.Editing
             get => GetValue(RightClickMovesCaretProperty);
             set => SetValue(RightClickMovesCaretProperty, value);
         }
+
+        /// <summary>
+        /// Defines the <see cref="CaretBrush"/> property
+        /// </summary>
+        public static readonly DirectProperty<TextArea, IBrush> CaretBrushProperty =
+            AvaloniaProperty.RegisterDirect<TextArea, IBrush>(nameof(CaretBrush),
+                getter: (textArea) => textArea.Caret.CaretBrush,
+                setter: (textArea, brush) => textArea.Caret.CaretBrush = brush);
+
+        /// <summary>
+        /// Gets or sets the brush used for Caret.
+        /// </summary>
+        public IBrush CaretBrush
+        {
+            get => GetValue(CaretBrushProperty);
+            set => SetValue(CaretBrushProperty, value);
+        }
+
+        /// <summary>
+        /// Gets the preedit text (text currently being composed using an input method).
+        /// </summary>
+        internal string PreeditText
+        {
+            get; private set;
+        }
+
         #endregion
 
         #region Focus Handling (Show/Hide Caret)
@@ -854,9 +898,9 @@ namespace AvaloniaEdit.Editing
                     ReplaceSelectionWithNewLine();
                 else
                 {
-                    // TODO
-                    //if (OverstrikeMode && Selection.IsEmpty && Document.GetLineByNumber(Caret.Line).EndOffset > Caret.Offset)
-                    //    EditingCommands.SelectRightByCharacter.Execute(null, this);
+                    if (OverstrikeMode && Selection.IsEmpty && Document.GetLineByNumber(Caret.Line).EndOffset > Caret.Offset)
+                        EditingCommands.SelectRightByCharacter.Execute(null, this);
+
                     ReplaceSelectionWithText(e.Text);
                 }
                 OnTextEntered(e);
@@ -951,6 +995,20 @@ namespace AvaloniaEdit.Editing
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
+
+            //if (e.Key == Key.Tab && Options.AcceptsTab && IsFocused)
+            //{
+            //    e.Handled = true;
+            //    if (e.KeyModifiers == KeyModifiers.Shift)
+            //    {
+            //        EditingCommandHandler.OnShiftTab(this, e);
+            //    }
+            //    else
+            //    {
+            //        EditingCommandHandler.OnTab(this, e);
+            //    }
+            //}
+
             TextView.InvalidateCursorIfPointerWithinTextView();
         }
 
@@ -1038,8 +1096,11 @@ namespace AvaloniaEdit.Editing
 
             if (change.Property == SelectionBrushProperty
                 || change.Property == SelectionBorderProperty
-                || change.Property == SelectionForegroundProperty
                 || change.Property == SelectionCornerRadiusProperty)
+            {
+                TextView.InvalidateLayer(KnownLayer.Selection);
+            }
+            else if (change.Property == SelectionForegroundProperty)
             {
                 TextView.Redraw();
             }
@@ -1161,13 +1222,17 @@ namespace AvaloniaEdit.Editing
 
                     var rect = _textArea.Caret.CalculateCaretRectangle().TransformToAABB(transform.Value);
 
+                    var scrollOffset = _textArea.TextView.ScrollOffset;
+
+                    rect = rect.WithX(rect.X - scrollOffset.X).WithY(rect.Y - scrollOffset.Y);
+
                     return rect;
                 }
             }
 
             public override Visual TextViewVisual => _textArea;
 
-            public override bool SupportsPreedit => false;
+            public override bool SupportsPreedit => true;
 
             public override bool SupportsSurroundingText => true;
 
@@ -1201,7 +1266,7 @@ namespace AvaloniaEdit.Editing
                 set
                 {
                     if (_textArea == null) return;
-                    var selection =  _textArea.Selection;
+                    var selection = _textArea.Selection;
                     if (selection.StartPosition.Line == 0) return;
 
                     _textArea.Selection = selection.StartSelectionOrSetEndpoint(
@@ -1240,7 +1305,12 @@ namespace AvaloniaEdit.Editing
 
             public override void SetPreeditText(string text)
             {
+                if (_textArea == null)
+                    return;
 
+                _textArea.PreeditText = text;
+
+                _textArea.TextView.InvalidateLayer(KnownLayer.Caret);
             }
         }
     }
