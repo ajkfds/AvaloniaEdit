@@ -85,9 +85,15 @@ namespace AvaloniaEdit.Folding
             if (_foldingManager != null)
             {
                 if (!_foldingManager.TextViews.Contains(context.TextView))
+                {
+                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
                     throw new ArgumentException("Invalid TextView");
+                }
                 if (context.Document != _foldingManager.Document)
+                {
+                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
                     throw new ArgumentException("Invalid document");
+                }
             }
         }
 
