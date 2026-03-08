@@ -1,4 +1,4 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Controls.Primitives;
 
 namespace AvaloniaEdit.CodeCompletion

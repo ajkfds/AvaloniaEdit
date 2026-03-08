@@ -1,4 +1,4 @@
-﻿using AvaloniaEdit.Document;
+using AvaloniaEdit.Document;
 using AvaloniaEdit.TextMate;
 
 using NUnit.Framework;
