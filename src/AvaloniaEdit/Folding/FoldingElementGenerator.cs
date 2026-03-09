@@ -92,7 +92,7 @@ namespace AvaloniaEdit.Folding
                 if (context.Document != _foldingManager.Document)
                 {
                     if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
-                    throw new ArgumentException("Invalid document");
+                    //throw new ArgumentException("Invalid document");
                 }
             }
         }

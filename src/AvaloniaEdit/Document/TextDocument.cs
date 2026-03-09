@@ -957,9 +957,13 @@ namespace AvaloniaEdit.Document
         public DocumentLine GetLineByOffset(int offset)
         {
             VerifyAccess();
-            if (offset < 0 || offset > _rope.Length)
+            if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(offset), offset, "0 <= offset <= " + _rope.Length);
+                offset = 0;
+            }else if(offset > _rope.Length)
+            {
+                offset = _rope.Length;
+//                throw new ArgumentOutOfRangeException(nameof(offset), offset, "0 <= offset <= " + _rope.Length);
             }
             return _lineTree.GetByOffset(offset);
         }
