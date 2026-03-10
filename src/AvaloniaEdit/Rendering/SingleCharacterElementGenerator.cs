@@ -32,7 +32,7 @@ namespace AvaloniaEdit.Rendering
     // This class is internal because it does not need to be accessed by the user - it can be configured using TextEditorOptions.
 
 	/// <summary>
-	/// Element generator that displays · for spaces and » for tabs and a box for control characters.
+	/// Element generator that displays ﾂｷ for spaces and ﾂｻ for tabs and a box for control characters.
 	/// </summary>
 	/// <remarks>
 	/// This element generator is present in every TextView by default; the enabled features can be configured using the
@@ -42,12 +42,12 @@ namespace AvaloniaEdit.Rendering
 	internal sealed class SingleCharacterElementGenerator : VisualLineElementGenerator, IBuiltinElementGenerator
 	{
 		/// <summary>
-		/// Gets/Sets whether to show · for spaces.
+		/// Gets/Sets whether to show ﾂｷ for spaces.
 		/// </summary>
 		public bool ShowSpaces { get; set; }
 
 		/// <summary>
-		/// Gets/Sets whether to show » for tabs.
+		/// Gets/Sets whether to show ﾂｻ for tabs.
 		/// </summary>
 		public bool ShowTabs { get; set; }
 

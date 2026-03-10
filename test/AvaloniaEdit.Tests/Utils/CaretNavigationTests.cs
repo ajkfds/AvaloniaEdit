@@ -129,7 +129,7 @@ namespace AvaloniaEdit.Utils
 		[Test]
 		public void CombiningMark()
 		{
-			string str = " x͆ ";
+			string str = " xﾍ・";
 			Assert.AreEqual(3, GetNextCaretStop(str, 1, CaretPositioningMode.Normal));
 			Assert.AreEqual(1, GetPrevCaretStop(str, 3, CaretPositioningMode.Normal));
 		}
@@ -137,7 +137,7 @@ namespace AvaloniaEdit.Utils
 		[Test]
 		public void StackedCombiningMark()
 		{
-			string str = " x͆͆͆͆ ";
+			string str = " xﾍ・・・・";
 			Assert.AreEqual(6, GetNextCaretStop(str, 1, CaretPositioningMode.Normal));
 			Assert.AreEqual(1, GetPrevCaretStop(str, 6, CaretPositioningMode.Normal));
 		}

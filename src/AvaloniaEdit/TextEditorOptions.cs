@@ -104,7 +104,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// Gets/Sets the char to show when ShowSpaces option is enabled
         /// </summary>
-        /// <remarks>The default value is <c>·</c>.</remarks>
+        /// <remarks>The default value is <c>ﾂｷ</c>.</remarks>
         [DefaultValue("\u00B7")]
         public virtual string ShowSpacesGlyph
         {
@@ -144,7 +144,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// Gets/Sets the char to show when ShowTabs option is enabled
         /// </summary>
-        /// <remarks>The default value is <c>→</c>.</remarks>
+        /// <remarks>The default value is <c>竊・/c>.</remarks>
         [DefaultValue("\u2192")]
         public virtual string ShowTabsGlyph
         {
@@ -179,13 +179,13 @@ namespace AvaloniaEdit
             }
         }
 
-        private string _endOfLineCRLFGlyph = "¶";
+        private string _endOfLineCRLFGlyph = "ﾂｶ";
 
         /// <summary>
         /// Gets/Sets the char to show for CRLF (\r\n) when ShowEndOfLine option is enabled
         /// </summary>
-        /// <remarks>The default value is <c>¶</c>.</remarks>
-        [DefaultValue("¶")]
+        /// <remarks>The default value is <c>ﾂｶ</c>.</remarks>
+        [DefaultValue("ﾂｶ")]
         public virtual string EndOfLineCRLFGlyph
         {
             get { return _endOfLineCRLFGlyph; }
