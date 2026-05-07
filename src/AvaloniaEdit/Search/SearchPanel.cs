@@ -170,10 +170,15 @@ namespace AvaloniaEdit.Search
 
         static SearchPanel()
         {
-            UseRegexProperty.Changed.Subscribe(SearchPatternChangedCallback);
-            MatchCaseProperty.Changed.Subscribe(SearchPatternChangedCallback);
-            WholeWordsProperty.Changed.Subscribe(SearchPatternChangedCallback);
-            SearchPatternProperty.Changed.Subscribe(SearchPatternChangedCallback);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(UseRegexProperty.Changed, SearchPatternChangedCallback);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(MatchCaseProperty.Changed, SearchPatternChangedCallback);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(WholeWordsProperty.Changed, SearchPatternChangedCallback);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(SearchPatternProperty.Changed, SearchPatternChangedCallback);
+
+            //UseRegexProperty.Changed.Subscribe(SearchPatternChangedCallback);
+            //MatchCaseProperty.Changed.Subscribe(SearchPatternChangedCallback);
+            //WholeWordsProperty.Changed.Subscribe(SearchPatternChangedCallback);
+            //SearchPatternProperty.Changed.Subscribe(SearchPatternChangedCallback);
         }
 
         /// <summary>

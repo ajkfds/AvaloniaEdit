@@ -37,11 +37,20 @@ namespace AvaloniaEdit.Editing
     {
         public AbstractMargin()
         {
-            this.GetPropertyChangedObservable(TextViewProperty).Subscribe(o =>
-            {
-                _wasAutoAddedToTextView = false;
-                OnTextViewChanged(o.OldValue as TextView, o.NewValue as TextView);
-            });
+            //this.GetPropertyChangedObservable(TextViewProperty).Subscribe(o =>
+            //{
+            //    _wasAutoAddedToTextView = false;
+            //    OnTextViewChanged(o.OldValue as TextView, o.NewValue as TextView);
+            //});
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(
+                this.GetPropertyChangedObservable(TextViewProperty),
+                o =>
+                {
+                    _wasAutoAddedToTextView = false;
+                    OnTextViewChanged(o.OldValue as TextView, o.NewValue as TextView);
+                }
+            );
+
         }
 
         /// <summary>

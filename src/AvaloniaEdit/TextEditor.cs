@@ -52,16 +52,28 @@ namespace AvaloniaEdit
             HorizontalScrollBarVisibilityProperty.OverrideDefaultValue<TextEditor>(ScrollBarVisibility.Auto);
             VerticalScrollBarVisibilityProperty.OverrideDefaultValue<TextEditor>(ScrollBarVisibility.Auto);
 
-            OptionsProperty.Changed.Subscribe(OnOptionsChanged);
-            DocumentProperty.Changed.Subscribe(OnDocumentChanged);
-            SyntaxHighlightingProperty.Changed.Subscribe(OnSyntaxHighlightingChanged);
-            IsReadOnlyProperty.Changed.Subscribe(OnIsReadOnlyChanged);
-            IsModifiedProperty.Changed.Subscribe(OnIsModifiedChanged);
-            ShowLineNumbersProperty.Changed.Subscribe(OnShowLineNumbersChanged);
-            LineNumbersForegroundProperty.Changed.Subscribe(OnLineNumbersForegroundChanged);
-            FontFamilyProperty.Changed.Subscribe(OnFontFamilyPropertyChanged);
-            FontSizeProperty.Changed.Subscribe(OnFontSizePropertyChanged);
-            SearchResultsBrushProperty.Changed.Subscribe(SearchResultsBrushChangedCallback);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(OptionsProperty.Changed,OnOptionsChanged);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(DocumentProperty.Changed,OnDocumentChanged);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(SyntaxHighlightingProperty.Changed,OnSyntaxHighlightingChanged);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(IsReadOnlyProperty.Changed,OnIsReadOnlyChanged);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(IsModifiedProperty.Changed,OnIsModifiedChanged);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(ShowLineNumbersProperty.Changed,OnShowLineNumbersChanged);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(LineNumbersForegroundProperty.Changed,OnLineNumbersForegroundChanged);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(FontFamilyProperty.Changed,OnFontFamilyPropertyChanged);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(FontSizeProperty.Changed,OnFontSizePropertyChanged);
+            AvaloniaEdit.Utils.ExtensionMethods.Subscribe(SearchResultsBrushProperty.Changed,SearchResultsBrushChangedCallback);
+
+
+            //OptionsProperty.Changed.Subscribe(OnOptionsChanged);
+            //DocumentProperty.Changed.Subscribe(OnDocumentChanged);
+            //SyntaxHighlightingProperty.Changed.Subscribe(OnSyntaxHighlightingChanged);
+            //IsReadOnlyProperty.Changed.Subscribe(OnIsReadOnlyChanged);
+            //IsModifiedProperty.Changed.Subscribe(OnIsModifiedChanged);
+            //ShowLineNumbersProperty.Changed.Subscribe(OnShowLineNumbersChanged);
+            //LineNumbersForegroundProperty.Changed.Subscribe(OnLineNumbersForegroundChanged);
+            //FontFamilyProperty.Changed.Subscribe(OnFontFamilyPropertyChanged);
+            //FontSizeProperty.Changed.Subscribe(OnFontSizePropertyChanged);
+            //SearchResultsBrushProperty.Changed.Subscribe(SearchResultsBrushChangedCallback);
         }
 
         /// <summary>
