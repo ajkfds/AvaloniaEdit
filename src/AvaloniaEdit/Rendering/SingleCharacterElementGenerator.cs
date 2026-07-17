@@ -103,20 +103,24 @@ namespace AvaloniaEdit.Rendering
         {
             var c = CurrentContext.Document.GetCharAt(offset);
 
-            if (ShowSpaces && c == ' ')
-            {
-                var runProperties = new VisualLineElementTextRunProperties(CurrentContext.GlobalTextRunProperties);
-                runProperties.SetForegroundBrush(CurrentContext.TextView.NonPrintableCharacterBrush);
-                return new SpaceTextElement(CurrentContext.TextView.CachedElements.GetTextForNonPrintableCharacter(
-                        CurrentContext.TextView.Options.ShowSpacesGlyph,
-                        runProperties));
-            }
-            else if (ShowTabs && c == '\t')
+			if (ShowSpaces && c == ' ')
+			{
+				var runProperties = new VisualLineElementTextRunProperties(CurrentContext.GlobalTextRunProperties);
+				runProperties.SetForegroundBrush(CurrentContext.TextView.NonPrintableCharacterBrush);
+				return new SpaceTextElement(CurrentContext.TextView.CachedElements.GetTextForNonPrintableCharacter(
+						// mustbe simple char to avoid font fallback
+						".",
+//						CurrentContext.TextView.Options.ShowSpacesGlyph,
+						runProperties));
+			}
+			else if (ShowTabs && c == '\t')
             {
                 var runProperties = new VisualLineElementTextRunProperties(CurrentContext.GlobalTextRunProperties);
                 runProperties.SetForegroundBrush(CurrentContext.TextView.NonPrintableCharacterBrush);
                 return new TabTextElement(CurrentContext.TextView.CachedElements.GetTextForNonPrintableCharacter(
-                        CurrentContext.TextView.Options.ShowTabsGlyph,
+                        // mustbe simple char to avoid font fallback
+                        "_",
+//                        CurrentContext.TextView.Options.ShowTabsGlyph,
                         runProperties));
             }
             else if (ShowBoxForControlCharacters && char.IsControl(c))
