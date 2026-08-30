@@ -155,11 +155,11 @@ namespace AvaloniaEdit.Rendering
 			}
 		}
 
-		private sealed class TabTextElement : VisualLineElement
+		internal sealed class TabTextElement : VisualLineElement
 		{
 			internal readonly TextLine Text;
-
-			public TabTextElement(TextLine text) : base(2, 1)
+            public int TabSize = 0;
+            public TabTextElement(TextLine text) : base(2, 1)
 			{
 				Text = text;
 			}
@@ -206,9 +206,15 @@ namespace AvaloniaEdit.Rendering
 
 			public override double Baseline => _element.Text.Baseline;
 
-			public override Size Size => default;
+            public override Size Size
+            {
+                get
+                {
+                    return new Size(_element.Text.WidthIncludingTrailingWhitespace * (_element.TabSize - 1), 0);
+                }
+            }
 
-			public override void Draw(DrawingContext drawingContext, Point origin)
+            public override void Draw(DrawingContext drawingContext, Point origin)
 			{
 				_element.Text.Draw(drawingContext, origin);
 			}
