@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -105,8 +105,10 @@ namespace AvaloniaEdit.Rendering
 			{
 				var properties = new VisualLineElementTextRunProperties(CurrentContext.GlobalTextRunProperties);
 				properties.SetForegroundBrush(CurrentContext.TextView.NonPrintableCharacterBrush);
-				var textSource = new SimpleTextSource(CurrentContext.TextView.Options.ShowSpacesGlyph, properties);
-				var textLine = TextFormatter.Current.FormatLine(textSource, 0, double.MaxValue, new GenericTextParagraphProperties(properties));
+                var textSource = new SimpleTextSource(".", properties);
+				// ShowGlpghで設定しているフォントが設定フォントにない場合、固定幅フォントを使っても位置がそろわなくなる。
+                //var textSource = new SimpleTextSource(CurrentContext.TextView.Options.ShowSpacesGlyph, properties);
+                var textLine = TextFormatter.Current.FormatLine(textSource, 0, double.MaxValue, new GenericTextParagraphProperties(properties));
 				return new SpaceTextElement(textLine);
 			}
 			
@@ -114,8 +116,10 @@ namespace AvaloniaEdit.Rendering
 			{
 				var properties = new VisualLineElementTextRunProperties(CurrentContext.GlobalTextRunProperties);
 				properties.SetForegroundBrush(CurrentContext.TextView.NonPrintableCharacterBrush);
-				var textSource = new SimpleTextSource(CurrentContext.TextView.Options.ShowTabsGlyph, properties);
-				var textLine = TextFormatter.Current.FormatLine(textSource, 0, double.MaxValue, new GenericTextParagraphProperties(properties));
+                var textSource = new SimpleTextSource("_", properties);
+                // ShowGlpghで設定しているフォントが設定フォントにない場合、固定幅フォントを使っても位置がそろわなくなる。
+                //var textSource = new SimpleTextSource(CurrentContext.TextView.Options.ShowTabsGlyph, properties);
+                var textLine = TextFormatter.Current.FormatLine(textSource, 0, double.MaxValue, new GenericTextParagraphProperties(properties));
 				return new TabTextElement(textLine);
 			}
 
