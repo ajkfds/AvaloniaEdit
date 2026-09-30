@@ -76,11 +76,17 @@ namespace AvaloniaEdit.Rendering
 
             var origin = new Point(x, y);
 
+            var width = textLayout.WidthIncludingTrailingWhitespace;
+            var height = textLayout.Height;
+
+            // Draw background behind preedit text so it stays readable over existing document text
+            drawingContext.FillRectangle(
+                new ImmutableSolidColorBrush(Brushes.Black),
+                new Rect(origin.X, origin.Y, width, height));
+
             textLayout.Draw(drawingContext, origin);
 
             // Draw underline to indicate composition text
-            var width = textLayout.WidthIncludingTrailingWhitespace;
-            var height = textLayout.Height;
             var pen = new ImmutablePen(foreground.ToImmutable(), 1);
             drawingContext.DrawLine(pen,
                 new Point(origin.X, origin.Y + height - 1),
